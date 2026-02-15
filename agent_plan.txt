@@ -1,0 +1,14 @@
+high level idea:
+create a us ds/mle/apply scientist/research scientist job summary agent that how to break information gap and increase the chance of future offer rate when needs a job.
+
+1. you need to figure out an execution plan to do the following things
+2. create virtual environment
+3. create readme and relavant files in git
+4. create necessary unit tests and integration test and use linter to make the code professional and as bug-free and efficient as possible
+5. build an agent to search for the ds/mle/as/rs jobs across major and open source job searching webpage such as linkedin
+6. summarize the job description 
+7. cluster the job descriptions into different categories. for example, fraud detection data scientist, analytics track data scientist (a/b testing), computer vision, robotics, llm, etc.
+8. plot a heatmap of the job count across united state, signapore, and hongkong and plot a heatmap by different sub cluster within those job openings
+9. provide a analytics report about the jobs opening including national and regional (such as bigh new york area, san francisco area, seatle, boston, etc) and add other details such as pay level, what is the yoe requirement, add detail insightful visuals when needed
+10. store the report into a pdf under subfolders called weekly report, the whole analysis should be triggered by a recommended frequency (based on the search time per time, need to give me this information)
+11. link to the internet and obtain career suggestion to professionals who are already in this field and want to enhance skillsets to catch up with the trend and find good next positions.

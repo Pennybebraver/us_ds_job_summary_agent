@@ -1,0 +1,97 @@
+# US DS Job Summary Agent Configuration
+
+# Job search parameters
+search:
+  job_titles:
+    - "Data Scientist"
+    - "Machine Learning Engineer"
+    - "Applied Scientist"
+    - "Research Scientist"
+    - "ML Engineer"
+    - "Data Science Manager"
+
+  # Locations to search
+  locations:
+    us:
+      - "New York, NY"
+      - "San Francisco, CA"
+      - "Seattle, WA"
+      - "Boston, MA"
+      - "Los Angeles, CA"
+      - "Chicago, IL"
+      - "Austin, TX"
+      - "Washington, DC"
+      - "San Jose, CA"
+      - "Denver, CO"
+    international:
+      - "Singapore"
+      - "Hong Kong"
+
+  # Job boards to search
+  sites:
+    - "indeed"
+    - "linkedin"
+    - "glassdoor"
+    - "zip_recruiter"
+
+  # Max results per search query
+  results_per_query: 50
+
+  # Delay between requests (seconds) to avoid rate limiting
+  request_delay: 3
+
+# Region mapping for analytics
+regions:
+  "Greater NYC":
+    - "New York"
+    - "Manhattan"
+    - "Brooklyn"
+    - "Jersey City"
+    - "Newark"
+    - "Hoboken"
+  "SF Bay Area":
+    - "San Francisco"
+    - "San Jose"
+    - "Palo Alto"
+    - "Mountain View"
+    - "Sunnyvale"
+    - "Oakland"
+    - "Menlo Park"
+    - "Redwood City"
+  "Seattle Area":
+    - "Seattle"
+    - "Bellevue"
+    - "Redmond"
+    - "Kirkland"
+  "Boston Area":
+    - "Boston"
+    - "Cambridge"
+    - "Somerville"
+    - "Waltham"
+  "LA Area":
+    - "Los Angeles"
+    - "Santa Monica"
+    - "Pasadena"
+    - "Burbank"
+  "Singapore":
+    - "Singapore"
+  "Hong Kong":
+    - "Hong Kong"
+
+# NLP settings
+nlp:
+  model_name: "all-MiniLM-L6-v2"
+  min_clusters: 5
+  max_clusters: 15
+  random_state: 42
+
+# Report settings
+report:
+  output_dir: "weekly_reports"
+  frequency: "weekly"
+  cron_expression: "0 22 * * 0"  # Every Sunday at 10 PM
+
+# Logging
+logging:
+  level: "INFO"
+  file: "agent.log"
