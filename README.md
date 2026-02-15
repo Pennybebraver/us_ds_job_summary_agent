@@ -4,7 +4,7 @@ An automated agent that scrapes, analyzes, and reports on Data Science, Machine 
 
 ## Features
 
-- **Multi-board job scraping**: LinkedIn, Indeed, Glassdoor, ZipRecruiter via `python-jobspy`
+- **Job scraping**: LinkedIn via `python-jobspy` (additional boards like Indeed, Glassdoor, ZipRecruiter can be enabled in config)
 - **NLP-powered clustering**: Automatically categorizes jobs (LLM/GenAI, Analytics, Computer Vision, Fraud Detection, etc.) using sentence-transformers
 - **Geographic heatmaps**: US choropleth by state, city-level density maps, international maps
 - **Salary & YOE analysis**: Regional salary distributions, experience requirement breakdowns
@@ -215,11 +215,11 @@ search:
       - "Singapore"
       - "Hong Kong"
 
-  sites:                  # Job boards to scrape
-    - "indeed"
+  sites:                  # Job boards to scrape (default: LinkedIn only)
     - "linkedin"
-    - "glassdoor"
-    - "zip_recruiter"
+    # - "indeed"           # Can be enabled, but may hit rate limits
+    # - "glassdoor"        # Often returns 400 errors for location parsing
+    # - "zip_recruiter"    # Can be enabled if needed
 
   results_per_query: 50   # Max results per title+location query
   request_delay: 3        # Seconds between requests (rate limiting)
@@ -311,7 +311,7 @@ us_ds_job_summary_agent/
 
 ```
 Settings (YAML)
-    → Scraper (python-jobspy: LinkedIn, Indeed, Glassdoor, ZipRecruiter)
+    → Scraper (python-jobspy: LinkedIn by default; other boards configurable)
     → Processor (clean, deduplicate, geocode, parse salary/YOE, assign regions)
     → NLP Summarizer (extractive summaries, skill extraction across 5 categories)
     → NLP Clustering (sentence-transformers embeddings → KMeans → category labels)
@@ -357,8 +357,8 @@ Each weekly PDF report includes:
 
 **No jobs found**:
 - Check your internet connection
-- Some job boards may block scraping from certain IPs
-- Try removing `linkedin` from `sites` (most aggressive rate limiter)
+- LinkedIn may block scraping from certain IPs — try increasing `request_delay`
+- If adding other boards, note that Glassdoor often returns 400 errors for location parsing
 
 **Model download fails**:
 - The `all-MiniLM-L6-v2` model (~80MB) downloads on first run

@@ -29,10 +29,7 @@ search:
 
   # Job boards to search
   sites:
-    - "indeed"
     - "linkedin"
-    - "glassdoor"
-    - "zip_recruiter"
 
   # Max results per search query
   results_per_query: 50

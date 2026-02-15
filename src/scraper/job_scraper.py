@@ -69,14 +69,23 @@ def scrape_jobs(
             )
 
             try:
-                jobs = jobspy_scrape(
-                    site_name=sites,
-                    search_term=title,
-                    location=location,
-                    results_wanted=results_per_query,
-                    country_indeed="USA" if _is_us_location(location) else None,
-                    hours_old=168,  # Last 7 days
-                )
+                is_us = _is_us_location(location)
+                scrape_kwargs = {
+                    "site_name": sites,
+                    "search_term": title,
+                    "location": location,
+                    "results_wanted": results_per_query,
+                    "hours_old": 168,  # Last 7 days
+                }
+                if is_us:
+                    scrape_kwargs["country_indeed"] = "USA"
+                else:
+                    # Map international locations to country codes
+                    country = _get_country_code(location)
+                    if country:
+                        scrape_kwargs["country_indeed"] = country
+
+                jobs = jobspy_scrape(**scrape_kwargs)
 
                 if jobs is not None and not jobs.empty:
                     jobs["search_query"] = title
@@ -110,6 +119,21 @@ def _is_us_location(location: str) -> bool:
     """Check if a location is in the US."""
     international = ["singapore", "hong kong", "london", "tokyo"]
     return not any(intl in location.lower() for intl in international)
+
+
+def _get_country_code(location: str) -> Optional[str]:
+    """Map international location to a country string for jobspy."""
+    location_lower = location.lower()
+    country_map = {
+        "singapore": "Singapore",
+        "hong kong": "Hong Kong",
+        "london": "UK",
+        "tokyo": "Japan",
+    }
+    for key, value in country_map.items():
+        if key in location_lower:
+            return value
+    return None
 
 
 def _standardize_columns(df: pd.DataFrame) -> pd.DataFrame:
