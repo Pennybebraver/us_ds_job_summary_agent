@@ -147,3 +147,20 @@ class TestScrapeJobs:
         )
 
         assert result.empty
+
+    @patch("jobspy.scrape_jobs")
+    def test_scrape_passes_linkedin_fetch_description(self, mock_scrape):
+        """Test that linkedin_fetch_description=True is passed."""
+        mock_scrape.return_value = pd.DataFrame()
+
+        scrape_jobs(
+            job_titles=["Data Scientist"],
+            locations=["New York, NY"],
+            sites=["linkedin"],
+            results_per_query=5,
+            request_delay=0,
+        )
+
+        call_kwargs = mock_scrape.call_args[1]
+        assert call_kwargs.get("linkedin_fetch_description") is True
+        assert call_kwargs.get("description_format") == "markdown"

@@ -19,7 +19,8 @@ def create_us_choropleth(
     df: pd.DataFrame,
     output_path: str = "outputs/us_choropleth.png",
     title: str = "DS/ML Job Openings by State",
-) -> Optional[str]:
+    return_fig: bool = False,
+):
     """
     Create a US choropleth map showing job count by state.
 
@@ -27,9 +28,11 @@ def create_us_choropleth(
         df: DataFrame with 'state' column.
         output_path: Path to save the image.
         title: Chart title.
+        return_fig: If True, return the Plotly figure instead of saving.
 
     Returns:
-        Path to saved image, or None if failed.
+        Plotly figure if return_fig=True, else path to saved image,
+        or None if failed.
     """
     if df.empty or "state" not in df.columns:
         logger.warning("No state data available for choropleth")
@@ -65,6 +68,9 @@ def create_us_choropleth(
         width=1000,
         height=600,
     )
+
+    if return_fig:
+        return fig
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.write_image(output_path, engine="kaleido")
@@ -237,12 +243,18 @@ def create_international_map(
 def create_region_comparison_chart(
     df: pd.DataFrame,
     output_path: str = "outputs/region_comparison.png",
-) -> Optional[str]:
+    return_fig: bool = False,
+):
     """
     Create a bar chart comparing job counts across regions.
 
+    Args:
+        df: DataFrame with 'region' column.
+        output_path: Path to save the image.
+        return_fig: If True, return the Plotly figure instead of saving.
+
     Returns:
-        Path to saved image.
+        Plotly figure if return_fig=True, else path to saved image.
     """
     if "region" not in df.columns:
         return None
@@ -274,6 +286,9 @@ def create_region_comparison_chart(
         font=dict(size=12),
         title_font_size=16,
     )
+
+    if return_fig:
+        return fig
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.write_image(output_path, engine="kaleido")

@@ -317,6 +317,11 @@ Estimated time per run: 10-15 minutes
         action="store_true",
         help="Run on a weekly schedule (Sunday 10 PM)",
     )
+    mode.add_argument(
+        "--dashboard",
+        action="store_true",
+        help="Launch the interactive Streamlit dashboard",
+    )
 
     parser.add_argument(
         "--config",
@@ -340,6 +345,18 @@ Estimated time per run: 10-15 minutes
         report_only(data_path=args.data, config_path=args.config)
     elif args.schedule:
         run_scheduled(config_path=args.config)
+    elif args.dashboard:
+        launch_dashboard()
+
+
+def launch_dashboard():
+    """Launch the Streamlit dashboard."""
+    import subprocess
+    app_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "app.py",
+    )
+    subprocess.run(["streamlit", "run", app_path])
 
 
 if __name__ == "__main__":

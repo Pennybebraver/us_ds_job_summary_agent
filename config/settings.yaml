@@ -30,12 +30,13 @@ search:
   # Job boards to search
   sites:
     - "linkedin"
+    - "indeed"
 
   # Max results per search query
-  results_per_query: 50
+  results_per_query: 25
 
   # Delay between requests (seconds) to avoid rate limiting
-  request_delay: 3
+  request_delay: 5
 
 # Region mapping for analytics
 regions:

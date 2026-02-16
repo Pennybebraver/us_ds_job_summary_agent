@@ -76,6 +76,8 @@ def scrape_jobs(
                     "location": location,
                     "results_wanted": results_per_query,
                     "hours_old": 168,  # Last 7 days
+                    "linkedin_fetch_description": True,
+                    "description_format": "markdown",
                 }
                 if is_us:
                     scrape_kwargs["country_indeed"] = "USA"
